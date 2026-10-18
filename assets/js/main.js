@@ -194,3 +194,19 @@
   /* year */
   document.querySelectorAll("[data-year]").forEach(function (y) { y.textContent = new Date().getFullYear(); });
 })();
+
+/* article category filter */
+(function () {
+  var chips = document.querySelectorAll(".chip[data-filter]");
+  if (!chips.length) return;
+  chips.forEach(function (c) {
+    c.addEventListener("click", function () {
+      chips.forEach(function (x) { x.classList.remove("on"); });
+      c.classList.add("on");
+      var f = c.getAttribute("data-filter");
+      document.querySelectorAll(".art-grid .upd").forEach(function (card) {
+        card.hidden = !(f === "all" || card.getAttribute("data-cat") === f);
+      });
+    });
+  });
+})();
