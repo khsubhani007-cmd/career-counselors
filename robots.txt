@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.careercounselors.pk/sitemap.xml
+Sitemap: https://careercounselors92.com/sitemap.xml

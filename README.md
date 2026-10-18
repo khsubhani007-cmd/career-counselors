@@ -22,14 +22,17 @@ Static website (HTML, CSS, JavaScript). No build step. Ready for GitHub Pages.
 4. After 1–2 minutes the site is live at `https://YOUR-USERNAME.github.io/careercounselors-website/`.
 
 ### Connect your own domain (recommended for Google Ads)
-1. Buy a domain (e.g. `careercounselors.pk`).
-2. In **Settings → Pages → Custom domain**, enter `www.yourdomain.com` and tick **Enforce HTTPS**.
+1. Buy a domain (e.g. `careercounselors92.com`).
+2. In **Settings → Pages → Custom domain**, enter `yourdomain.com` and tick **Enforce HTTPS**.
 3. At your domain provider, add a `CNAME` record: `www` → `YOUR-USERNAME.github.io`.
 
-## IMPORTANT: replace the placeholder domain
-All SEO tags, the sitemap and schema use the placeholder **`https://www.careercounselors.pk`**.
+## Domain
+The site is set up for **careercounselors92.com** (see the `CNAME` file).
+
+## Changing the domain later
+All SEO tags, the sitemap and schema use the placeholder **`https://careercounselors92.com`**.
 If your domain is different, use GitHub's search or any editor's "Find and Replace in files" to replace
-`https://www.careercounselors.pk` with your real domain in every `.html` file, `sitemap.xml` and `robots.txt`.
+`https://careercounselors92.com` with your real domain in every `.html` file, `sitemap.xml` and `robots.txt`.
 
 ## Before you go live — please check
 - **Exact office address**: the site says "DHA Branch, Lahore". Add the full street address in `contact.html`
