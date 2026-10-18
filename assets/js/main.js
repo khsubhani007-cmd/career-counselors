@@ -210,3 +210,59 @@
     });
   });
 })();
+
+/* articles: search + filter, reading progress, TOC scrollspy, copy link */
+(function () {
+  var grid = document.getElementById("art-grid");
+  if (grid) {
+    var input = document.getElementById("art-search"), noRes = document.getElementById("no-res");
+    var chips = document.querySelectorAll(".chip[data-filter]"), cat = "all";
+    function apply() {
+      var q = (input && input.value || "").trim().toLowerCase(), shown = 0;
+      grid.querySelectorAll(".acard").forEach(function (c) {
+        var ok = (cat === "all" || c.getAttribute("data-cat") === cat) && (!q || c.getAttribute("data-text").indexOf(q) > -1);
+        c.hidden = !ok; if (ok) { shown++; c.classList.add("in"); }
+      });
+      if (noRes) noRes.hidden = shown > 0;
+    }
+    chips.forEach(function (ch) {
+      ch.addEventListener("click", function () {
+        chips.forEach(function (x) { x.classList.remove("on"); }); ch.classList.add("on");
+        cat = ch.getAttribute("data-filter"); apply();
+      });
+    });
+    if (input) input.addEventListener("input", function () {
+      apply();
+      if (input.value && window.scrollY < 200) document.getElementById("all").scrollIntoView({ behavior: "smooth" });
+    });
+  }
+  var bar = document.querySelector(".read-progress"), body = document.querySelector(".prose-a");
+  if (bar && body) {
+    window.addEventListener("scroll", function () {
+      var r = body.getBoundingClientRect(), total = r.height - window.innerHeight * 0.5;
+      var p = Math.min(1, Math.max(0, -r.top / (total || 1)));
+      bar.style.width = (p * 100) + "%";
+    }, { passive: true });
+  }
+  var links = document.querySelectorAll(".toc-d a");
+  if (links.length && "IntersectionObserver" in window) {
+    var map = {};
+    links.forEach(function (l) { map[l.getAttribute("href").slice(1)] = l; });
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (en) {
+        if (en.isIntersecting) {
+          links.forEach(function (l) { l.classList.remove("active"); });
+          var l = map[en.target.id]; if (l) l.classList.add("active");
+        }
+      });
+    }, { rootMargin: "-90px 0px -65% 0px" });
+    Object.keys(map).forEach(function (id) { var h = document.getElementById(id); if (h) io.observe(h); });
+  }
+  document.querySelectorAll(".copy-link").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var url = b.getAttribute("data-url");
+      function done() { b.classList.add("copied"); setTimeout(function () { b.classList.remove("copied"); }, 1600); }
+      if (navigator.clipboard) navigator.clipboard.writeText(url).then(done, done); else done();
+    });
+  });
+})();
